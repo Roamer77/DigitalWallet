@@ -1,5 +1,5 @@
 import React, {FC} from 'react';
-import {StyleSheet, View} from 'react-native';
+import {Dimensions, StyleSheet, View} from 'react-native';
 import {useAppDispatch} from '../../store/hooks';
 import {setIsCardModalVisible} from '../../store/redusers/appStateReducer';
 import {ActionButton} from '../ActionButton/ActionButton';
@@ -17,6 +17,7 @@ interface ICard {
   currencyType: CurrencyTypes;
   style?: any;
 }
+const width = Dimensions.get("window").width;
 export const Card: FC<ICard> = ({
   name,
   cardNumber,
@@ -50,7 +51,7 @@ export const Card: FC<ICard> = ({
 
 const styles = StyleSheet.create({
   container: {
-    width: 370,
+    width: width,
     height: 200,
     borderRadius: 10,
     elevation: 10,

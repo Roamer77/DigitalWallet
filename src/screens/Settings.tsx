@@ -1,9 +1,11 @@
-import React, {FC, useCallback} from 'react';
+import React, {FC, useCallback, useState} from 'react';
 import {StyleSheet, View} from 'react-native';
 import {useSharedValue} from 'react-native-reanimated';
+import {AppHeaderWithActionButton} from '../components/AppHeader/AppHeaderWithActionButton';
 import {AppCardCreationModal} from '../components/AppModals/CardCreationModal/AppCardCreationModal';
 import {CardList} from '../components/CardList/CardList';
 import {StickyView} from '../components/CardList/StickyView';
+import {TargetPrompt} from '../components/TargetPrompt/TargetPrompt';
 import {WavyBackground} from '../components/WavyBackground/WavyBackground';
 import {COLORS} from '../resources/colors';
 import {useAppDispatch, useAppSelector} from '../store/hooks';
@@ -22,8 +24,7 @@ export const Settings: FC<ISettings> = ({}) => {
     },
     [dispatch],
   );
-  const w = useSharedValue(40);
-  const o = useSharedValue(1);
+  const [isShown, showPrompt] = useState(false);
   return (
     <View style={styles.container}>
       <WavyBackground
@@ -32,9 +33,15 @@ export const Settings: FC<ISettings> = ({}) => {
         secondColor={COLORS.transactionBackground}
         style={{top: 0}}
       />
+      <AppHeaderWithActionButton
+        onPress={() => showPrompt(!isShown)}
+        style={{zIndex: isShown === true ? 10 : 1}}
+      />
       <CardList data={cards} onDelete={handleDelete} />
       <AppCardCreationModal />
-      {/* <StickyView animWidth={w} animOpacity={o} /> */}
+      {isShown && (
+        <TargetPrompt show={isShown} onPress={() => showPrompt(!isShown)} />
+      )}
     </View>
   );
 };
@@ -44,7 +51,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    //backgroundColor: COLORS.settingsBackground,
     backgroundColor: COLORS.transactionBackground,
   },
   cardList: {

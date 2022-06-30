@@ -50,7 +50,7 @@ export const AppBottomTabBar: FC<IAppBottomTabBar> = ({onNavigate}) => {
 const styles = StyleSheet.create({
   container: {
     width: '100%',
-    height: 70,
+    height: 55,
     backgroundColor: COLORS.transactionItem,
     flexDirection: 'row',
     alignItems: 'center',

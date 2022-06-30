@@ -7,6 +7,8 @@ export const COLORS = {
   bottomTabBarIconNames: '#f2edfa',
   settingsBackground: '#E8D8ED',
   transactionItemText: '#dccef2',
+  promptMainCircleColor: 'rgba(120, 88, 166, 0.8)',
+  promptSecondaryCircleColor: 'rgba(232, 216, 237, 0.8)',
 };
 export interface IColorScheme {
   primary: string;

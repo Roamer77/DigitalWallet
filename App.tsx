@@ -1,5 +1,6 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import {Alert, Button, View} from 'react-native';
+import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import {Provider} from 'react-redux';
 import {RootNavigator} from './src/navigation/RootNavigator';
 import {SplashScreen} from './src/screens/SplashScreen';
@@ -13,7 +14,9 @@ const App = () => {
   } else {
     return (
       <Provider store={store}>
-        <RootNavigator />
+        <GestureHandlerRootView style={{flex: 1}}>
+          <RootNavigator />
+        </GestureHandlerRootView>
       </Provider>
     );
   }

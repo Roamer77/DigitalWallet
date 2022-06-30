@@ -24,6 +24,7 @@ export const TransactionsList: FC<ITransactionsList> = ({}) => {
       <Animated.FlatList
         style={{marginBottom: 10}}
         data={currentTransactions}
+        showsVerticalScrollIndicator = {false}
         renderItem={({item, index}) => (
           <Transaction data={item} cardData={currentCard} renderIndex={index} />
         )}

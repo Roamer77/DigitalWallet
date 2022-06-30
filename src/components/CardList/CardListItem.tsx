@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {Gesture, GestureDetector} from 'react-native-gesture-handler';
+import {Gesture, GestureDetector, GestureHandlerRootView} from 'react-native-gesture-handler';
 import Animated, {
   Layout,
   SlideInLeft,
@@ -107,7 +107,6 @@ export const CardListItem: FC<ICardListItem> = ({
       cardInfoOpacity.value = 1;
       cardInfoScale.value = 1;
       cardSettingsTranslateX.value = 60;
- 
     } else {
       detailesFunctionsHeight.value = 0;
       itemHeight.value = 60;

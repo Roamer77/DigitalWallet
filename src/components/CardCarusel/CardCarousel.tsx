@@ -69,7 +69,6 @@ export const CardCarousel: FC<ICardCarousel> = ({}) => {
               cardNumber={item.cardNumber}
               currencyType={item.currencyType}
               style={{
-                ...styles.carouselItem,
                 backgroundColor: getCardBgColor(item.id),
               }}
             />
@@ -84,8 +83,5 @@ export const CardCarousel: FC<ICardCarousel> = ({}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 0.8,
-  },
-  carouselItem: {
-    marginHorizontal: 10,
   },
 });

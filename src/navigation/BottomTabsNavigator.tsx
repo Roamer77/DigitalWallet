@@ -54,26 +54,13 @@ export const BottomTabsNavigator: FC<IBottomTabsNavigator> = ({}) => {
         tabBarInactiveTintColor: '#111',
       })}>
       <BottomTab.Screen
-        name={"DashboardStackNavigator"}
+        name={'DashboardStackNavigator'}
         component={DashboardStackNavigator}
       />
       {/* <BottomTab.Screen name={ScreenNames.Statistics} component={Statistics} /> */}
       <BottomTab.Screen
         options={{
-          headerRight: () => (
-            <AppIconButton
-              icon={require('../assets/CardList/addCard.png')}
-              width={45}
-              height={45}
-              onPress={openModalForCreationCard}
-            />
-          ),
-          headerTitleStyle: {
-            color: '#fff',
-            fontSize: 25,
-          },
-
-          headerShown: true,
+          headerShown: false,
           headerStyle: {
             backgroundColor: COLORS.bottomTabBar,
           },
