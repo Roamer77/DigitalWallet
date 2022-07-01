@@ -60,7 +60,8 @@ export const CardListItem: FC<ICardListItem> = ({
   const detailesFunctionsHeight = useSharedValue(0);
   const cardInfoOpacity = useSharedValue(0);
   const cardInfoScale = useSharedValue(0);
-  const cardSettingsTranslateX = useSharedValue(0);
+  const settingsCardTranslatY = useSharedValue(0);
+  const settingsCardOpacity = useSharedValue(0);
 
   const gestureHandler = Gesture.Pan()
     .onStart(() => {
@@ -99,23 +100,21 @@ export const CardListItem: FC<ICardListItem> = ({
       }
     });
 
-  const longPressgeasture = Gesture.Tap().onStart(() => {
+  const tap = () => {
     setCurrentIndex(index);
     if (currentIndex === null) {
       detailesFunctionsHeight.value = 300;
       itemHeight.value = 160;
       cardInfoOpacity.value = 1;
       cardInfoScale.value = 1;
-      cardSettingsTranslateX.value = 60;
- 
     } else {
       detailesFunctionsHeight.value = 0;
       itemHeight.value = 60;
       cardInfoOpacity.value = 0;
       cardInfoScale.value = 0;
-      cardSettingsTranslateX.value = 0;
     }
-  });
+  };
+
   const itemStyle = useAnimatedStyle(() => ({
     transform: [
       {translateY: withTiming(itemTranslateY.value, {duration: 450})},
@@ -123,6 +122,7 @@ export const CardListItem: FC<ICardListItem> = ({
     marginTop: withTiming(itemMarginTop.value, {duration: 450}),
     height: withTiming(itemHeight.value, {duration: 450}),
   }));
+
   const slideRightStyle = useAnimatedStyle(() => ({
     transform: [{translateX: swipeRight.value}],
   }));
@@ -130,8 +130,12 @@ export const CardListItem: FC<ICardListItem> = ({
   useEffect(() => {
     if (currentIndex === null) {
       itemTranslateY.value = 0;
+      settingsCardTranslatY.value = 80;
+      settingsCardOpacity.value = 0;
     } else {
-      itemTranslateY.value = -60 * index;
+      itemTranslateY.value = -70 * index;
+      settingsCardTranslatY.value = -70 * index;
+      settingsCardOpacity.value = 1;
     }
   }, [currentIndex, index, itemTranslateY, swipeRight]);
 
@@ -144,37 +148,39 @@ export const CardListItem: FC<ICardListItem> = ({
     }
   }, [state]);
 
-  const composed = Gesture.Race(gestureHandler, longPressgeasture);
+  const composed = Gesture.Race(gestureHandler);
 
   return (
     <Animated.View style={[styles.container]}>
       <Animated.View style={[slideRightStyle]}>
         <GestureDetector gesture={composed}>
-          <Animated.View
-            style={[
-              {...styles.content, backgroundColor: cardColorScheme.primary},
-              itemStyle,
-            ]}
-            entering={
-              initialMode.current
-                ? SlideInLeft.delay(100 * data.id)
-                : SlideInLeft
-            }
-            layout={Layout.delay(200)}>
-            <View style={[styles.name]}>
-              <Text style={styles.nameText}>{data.name}</Text>
-            </View>
-            <AditionalCardInfo
-              data={data}
-              cardInfoOpacity={cardInfoOpacity}
-              cardInfoScale={cardInfoScale}
-            />
-            <CardSettingFunctions
-              animHeight={detailesFunctionsHeight}
-              translateY={cardSettingsTranslateX}
-            />
-          </Animated.View>
+          <TouchableOpacity onPress={tap} activeOpacity={0.9}>
+            <Animated.View
+              style={[
+                {...styles.content, backgroundColor: cardColorScheme.primary},
+                itemStyle,
+              ]}
+              entering={
+                initialMode.current
+                  ? SlideInLeft.delay(100 * data.id)
+                  : SlideInLeft
+              }>
+              <View style={[styles.name]}>
+                <Text style={styles.nameText}>{data.name}</Text>
+              </View>
+              <AditionalCardInfo
+                data={data}
+                cardInfoOpacity={cardInfoOpacity}
+                cardInfoScale={cardInfoScale}
+              />
+            </Animated.View>
+          </TouchableOpacity>
         </GestureDetector>
+        <CardSettingFunctions
+          animHeight={detailesFunctionsHeight}
+          translateY={settingsCardTranslatY}
+          opacity={settingsCardOpacity}
+        />
       </Animated.View>
 
       <StickyView

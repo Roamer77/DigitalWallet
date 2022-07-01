@@ -7,6 +7,7 @@ export const COLORS = {
   bottomTabBarIconNames: '#f2edfa',
   settingsBackground: '#E8D8ED',
   transactionItemText: '#dccef2',
+  primaryTextColor:'#fff'
 };
 export interface IColorScheme {
   primary: string;

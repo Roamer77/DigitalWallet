@@ -1,6 +1,7 @@
 import React, {FC} from 'react';
 import {StyleSheet, Text} from 'react-native';
 import Animated, {
+  interpolate,
   SharedValue,
   useAnimatedStyle,
   withTiming,
@@ -9,16 +10,18 @@ import Animated, {
 interface ICardSettingFunctions {
   animHeight: SharedValue<number>;
   translateY: SharedValue<number>;
+  opacity: SharedValue<number>;
 }
 
 export const CardSettingFunctions: FC<ICardSettingFunctions> = ({
   animHeight,
   translateY,
+  opacity,
 }) => {
   const detailesFunctionsAnimStyle = useAnimatedStyle(() => ({
     height: withTiming(animHeight.value, {duration: 450}),
-    // transform: [{translateY: withTiming(translateY.value, {duration: 450})}],
-    //marginTop: withTiming(translateY.value, {duration: 450}),
+    transform: [{translateY: withTiming(translateY.value, {duration: 450})}],
+    opacity: withTiming(opacity.value, {duration: 300}),
   }));
 
   return (
@@ -37,6 +40,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#FFDBB8',
     borderRadius: 10,
-    marginTop: 45,
+    marginTop: 10,
   },
 });

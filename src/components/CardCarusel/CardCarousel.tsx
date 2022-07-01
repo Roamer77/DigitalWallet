@@ -10,6 +10,8 @@ import {CARD_COLORS} from '../../resources/colors';
 import {ScreenNames} from '../../screens/ScreenNames';
 import {useAppDispatch, useAppSelector} from '../../store/hooks';
 import {ICard, setCurrentCard} from '../../store/redusers/cardReducer';
+import {SharedElement} from 'react-navigation-shared-element';
+
 import {Card} from '../Card/Card';
 
 interface ICardCarousel {}
@@ -62,17 +64,20 @@ export const CardCarousel: FC<ICardCarousel> = ({}) => {
           <TouchableOpacity
             activeOpacity={0.7}
             onPress={() => handleCardPress(item)}>
-            <Card
-              name={item.name}
-              balance={item.balance}
-              icon={item.cardIcon}
-              cardNumber={item.cardNumber}
-              currencyType={item.currencyType}
-              style={{
-                ...styles.carouselItem,
-                backgroundColor: getCardBgColor(item.id),
-              }}
-            />
+            <SharedElement id={`item.${item.id}.card`}>
+              <Card
+                id={item.id}
+                name={item.name}
+                balance={item.balance}
+                icon={item.cardIcon}
+                cardNumber={item.cardNumber}
+                currencyType={item.currencyType}
+                style={{
+                  ...styles.carouselItem,
+                  backgroundColor: getCardBgColor(item.id),
+                }}
+              />
+            </SharedElement>
           </TouchableOpacity>
         )}
         keyExtractor={item => item.id.toString()}

@@ -1,5 +1,6 @@
 import React, {FC} from 'react';
 import {StyleSheet, View} from 'react-native';
+import {SharedElement} from 'react-navigation-shared-element';
 import {useAppDispatch} from '../../store/hooks';
 import {setIsCardModalVisible} from '../../store/redusers/appStateReducer';
 import {ActionButton} from '../ActionButton/ActionButton';
@@ -15,6 +16,7 @@ interface ICard {
   icon: any;
   balance: number;
   currencyType: CurrencyTypes;
+  id: number;
   style?: any;
 }
 export const Card: FC<ICard> = ({
@@ -24,6 +26,7 @@ export const Card: FC<ICard> = ({
   balance,
   currencyType,
   style,
+  id,
 }) => {
   const dispatch = useAppDispatch();
   const handleCardActionBtnPress = () => {

@@ -36,7 +36,10 @@ export const Tab: FC<ITab> = ({children, onPress, index, activeIndex}) => {
   }, [isActive]);
   // for android direction does not work . It is prefer to use alightItems flex-end  but for better view prefer to use Solid ICONS
   return (
-    <TouchableOpacity activeOpacity={0.9} onPress={onPress}>
+    <TouchableOpacity
+      activeOpacity={0.9}
+      onPress={onPress}
+      style={{width: 70, height: 70, justifyContent:'center', alignItems:'center'}}>
       <Wave activeTabIndex={activeIndex} index={index} />
       <Animated.View style={[styles.content, {direction: direction}]}>
         <View style={StyleSheet.absoluteFill}>{children}</View>
