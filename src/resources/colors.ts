@@ -9,6 +9,7 @@ export const COLORS = {
   transactionItemText: '#dccef2',
   promptMainCircleColor: 'rgba(120, 88, 166, 0.8)',
   promptSecondaryCircleColor: 'rgba(232, 216, 237, 0.8)',
+  primaryTextColor:'#fff'
 };
 export interface IColorScheme {
   primary: string;
