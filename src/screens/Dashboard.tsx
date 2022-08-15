@@ -8,6 +8,7 @@ import Animated, {
 } from 'react-native-reanimated';
 import {AppHeader} from '../components/AppHeader/AppHeader';
 import {AppModal} from '../components/AppModals/AppModal/AppModal';
+import {BottomSheet} from '../components/BottomSheet/BottomSheet';
 import {CardCarousel} from '../components/CardCarusel/CardCarousel';
 import {TransactionsList} from '../components/TransactionsList/TransactionsList';
 import {WavyBackground} from '../components/WavyBackground/WavyBackground';
@@ -16,9 +17,8 @@ import {FadeInView} from './AnimatedScreenView/FadeInView';
 interface IDashboard {}
 
 export const Dashboard: FC<IDashboard> = ({}) => {
-
   return (
-    <SafeAreaView style={{flex: 1}} >
+    <SafeAreaView style={{flex: 1}}>
       <WavyBackground
         height={370}
         backgroundColor={COLORS.transactionItem}
@@ -40,6 +40,7 @@ export const Dashboard: FC<IDashboard> = ({}) => {
         <TransactionsList />
         <AppModal />
       </Animated.View>
+
     </SafeAreaView>
   );
 };

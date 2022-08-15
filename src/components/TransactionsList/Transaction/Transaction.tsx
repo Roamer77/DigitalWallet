@@ -1,5 +1,5 @@
 import React, {FC, useEffect} from 'react';
-import {Text, View, StyleSheet} from 'react-native';
+import {Text, View, StyleSheet, Image} from 'react-native';
 import Animated, {
   Extrapolate,
   useAnimatedStyle,
@@ -15,12 +15,14 @@ interface ITransaction {
   data: ITransactionData;
   cardData: ICard;
   renderIndex: number;
+  icon: any;
 }
 
 export const Transaction: FC<ITransaction> = ({
   data,
   cardData,
   renderIndex,
+  icon,
 }) => {
   const opacity = useSharedValue(0);
 
@@ -42,11 +44,15 @@ export const Transaction: FC<ITransaction> = ({
         animatedStyle,
       ]}>
       <View style={styles.content}>
-        <Text style={styles.text}> {data.recipient}</Text>
-        <Text style={styles.amount}>
-          {' '}
-          {data.amount} {cardData.currencyType}{' '}
-        </Text>
+        <View style={styles.iconWrapper}>
+          <Image style={styles.icon} source={icon} />
+        </View>
+        <View style={styles.textWrapper}>
+          <Text style={styles.text}> {data.recipient}</Text>
+          <Text style={styles.amount}>
+            {data.amount} {cardData.currencyType}
+          </Text>
+        </View>
       </View>
     </Animated.View>
   );
@@ -58,16 +64,13 @@ const styles = StyleSheet.create({
     height: 50,
     marginVertical: 7,
     borderRadius: 5,
-    justifyContent: 'center',
     backgroundColor: COLORS.transactionItem,
   },
   content: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
   },
   text: {
     fontSize: 20,
-    paddingStart: 30,
     color: COLORS.transactionItemText,
   },
   amount: {
@@ -75,5 +78,20 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     paddingEnd: 10,
     color: COLORS.transactionItemText,
+  },
+  iconWrapper: {
+    paddingStart: 10,
+  },
+  icon: {
+    width: 44,
+    height: 44,
+  },
+  textWrapper: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    width: '100%',
+    paddingStart: 20,
+    paddingEnd: 60,
   },
 });

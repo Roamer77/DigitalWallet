@@ -1,23 +1,20 @@
 import React, {FC, useEffect, useState} from 'react';
 import {Button, Modal, StyleSheet, View} from 'react-native';
-import {CardTypes} from '../../../resources/CardTypes';
-import {CARD_COLORS, COLORS} from '../../../resources/colors';
-import {useAppDispatch, useAppSelector} from '../../../store/hooks';
-import {setIsAddCardModalVisible} from '../../../store/redusers/appStateReducer';
-import {addCardStyle} from '../../../store/redusers/appStyleReduser';
-import {addNewCard, ICard} from '../../../store/redusers/cardReducer';
-import {CardIcons} from '../../../utiles/CardIcons';
 import {
   AppDropdownColorPicker,
   IColorPickerPayload,
-} from '../../AppDropdownSelector/AppDropdownColorPicker';
-import {AppDropdownSelectorWithTitle} from '../../AppDropdownSelector/AppDropdownSelectorWithTitle';
-import {CurrencyTypes} from '../../Card/CurrencyTypes';
-import {AppTextInput} from './AppTextInput';
-import {CardNumberInput} from './CardNumberInput';
-import {ModalTitle} from './ModalTitle';
-
-interface IAppCardCreationModal {}
+} from '../components/AppDropdownSelector/AppDropdownColorPicker';
+import {AppDropdownSelectorWithTitle} from '../components/AppDropdownSelector/AppDropdownSelectorWithTitle';
+import {AppTextInput} from '../components/AppModals/CardCreationModal/AppTextInput';
+import {CardNumberInput} from '../components/AppModals/CardCreationModal/CardNumberInput';
+import {ModalTitle} from '../components/AppModals/CardCreationModal/ModalTitle';
+import {CurrencyTypes} from '../components/Card/CurrencyTypes';
+import {CardTypes} from '../resources/CardTypes';
+import {CARD_COLORS, COLORS} from '../resources/colors';
+import {useAppDispatch, useAppSelector} from '../store/hooks';
+import {addCardStyle} from '../store/redusers/appStyleReduser';
+import {addNewCard} from '../store/redusers/cardReducer';
+import {CardIcons} from '../utiles/CardIcons';
 
 const Cards = [
   {data: 'Visa', payload: CardIcons.VISA, type: CardTypes.VISA},
@@ -46,10 +43,7 @@ const Colors: IColorPickerPayload[] = [
   },
 ];
 
-export const AppCardCreationModal: FC<IAppCardCreationModal> = ({
-  onConfirm,
-}) => {
-  const {isAddCardModalVisible} = useAppSelector(store => store.appState);
+export const AddNewCardScreen = () => {
   const {cards} = useAppSelector(store => store.cards);
   const dispatch = useAppDispatch();
   const [cardBalance, setCardBalance] = useState('');
@@ -60,7 +54,6 @@ export const AppCardCreationModal: FC<IAppCardCreationModal> = ({
   const [cardColor, setCardColor] = useState(Colors[0]);
 
   const closeModal = () => {
-    dispatch(setIsAddCardModalVisible(false));
     clearFieldData();
   };
   const createCard = () => {
@@ -98,48 +91,46 @@ export const AppCardCreationModal: FC<IAppCardCreationModal> = ({
   };
 
   return (
-    <Modal transparent visible={isAddCardModalVisible} animationType='slide'>
-      <View style={styles.container}>
-        <View style={styles.content}>
-          <ModalTitle title="New card" style={styles.title} />
-          <AppTextInput
-            title="Enter card name:"
-            placeholder="Card name..."
-            text={cardName}
-            onTextChange={setCardName}
-          />
-          <CardNumberInput
-            style={styles.cardNumberInput}
-            numbers={cardNumbers}
-            onTextChange={setCardNumbers}
-          />
-          <AppTextInput
-            title="Enter money amount:"
-            placeholder="1000$"
-            style={styles.amountMoneyOnNewCard}
-            text={cardBalance}
-            onTextChange={setCardBalance}
-          />
-          <AppDropdownSelectorWithTitle
-            title="Select card type:"
-            style={styles.cardTypeSelector}
-            data={Cards}
-            selectedItem={cardType}
-            onItemSelected={setCardType}
-          />
-          <AppDropdownColorPicker
-            title="Select card color:"
-            style={styles.cardColorPicker}
-            onItemSelected={setCardColor}
-            colors={Colors}
-          />
-          <View style={styles.buttons}>
-            <Button title="Create" onPress={createCard} />
-            <Button title="Cancel" onPress={closeModal} />
-          </View>
+    <View style={styles.container}>
+      <View style={styles.content}>
+        <ModalTitle title="New card" style={styles.title} />
+        <AppTextInput
+          title="Enter card name:"
+          placeholder="Card name..."
+          text={cardName}
+          onTextChange={setCardName}
+        />
+        <CardNumberInput
+          style={styles.cardNumberInput}
+          numbers={cardNumbers}
+          onTextChange={setCardNumbers}
+        />
+        <AppTextInput
+          title="Enter money amount:"
+          placeholder="1000$"
+          style={styles.amountMoneyOnNewCard}
+          text={cardBalance}
+          onTextChange={setCardBalance}
+        />
+        <AppDropdownSelectorWithTitle
+          title="Select card type:"
+          style={styles.cardTypeSelector}
+          data={Cards}
+          selectedItem={cardType}
+          onItemSelected={setCardType}
+        />
+        <AppDropdownColorPicker
+          title="Select card color:"
+          style={styles.cardColorPicker}
+          onItemSelected={setCardColor}
+          colors={Colors}
+        />
+        <View style={styles.buttons}>
+          <Button title="Create" onPress={createCard} />
+          <Button title="Cancel" onPress={closeModal} />
         </View>
       </View>
-    </Modal>
+    </View>
   );
 };
 

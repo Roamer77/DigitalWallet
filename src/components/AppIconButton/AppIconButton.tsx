@@ -1,5 +1,5 @@
 import React, {FC} from 'react';
-import {TouchableOpacity} from 'react-native';
+import {TouchableOpacity, View,Text} from 'react-native';
 import {AppIcon} from '../AppIcon/AppIcon';
 
 interface IAppIconButton {
@@ -18,8 +18,10 @@ export const AppIconButton: FC<IAppIconButton> = ({
   height,
 }) => {
   return (
-    <TouchableOpacity onPress={onPress} style={styles}>
-      <AppIcon width={width} height={height} icon={icon} />
+    <TouchableOpacity onPress={onPress}>
+      <View style={styles}>
+        <AppIcon width={width} height={height} icon={icon} />
+      </View>
     </TouchableOpacity>
   );
 };

@@ -1,5 +1,7 @@
 import React, {FC, useEffect, useRef, useState} from 'react';
 import {ScrollView, StyleSheet} from 'react-native';
+import { useAppDispatch } from '../../store/hooks';
+import { setIsSettingsHeaderOpened } from '../../store/redusers/appStateReducer';
 import {ICard} from '../../store/redusers/cardReducer';
 import {CardListItem} from './CardListItem';
 
@@ -13,6 +15,7 @@ export const CardList: FC<ICardList> = ({style, data, onDelete}) => {
   const initialMode = useRef<boolean>(true);
   const [currentIndex, setCurrentIndex] = useState<null | number>(null);
   const [itemState, setItemState] = useState(0);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     initialMode.current = false;

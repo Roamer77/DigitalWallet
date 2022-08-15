@@ -15,6 +15,7 @@ export interface ITransactionData {
   cardId: number;
   amount: number;
   recipient: string;
+  icon: any;
 }
 interface IinitialState {
   currentCard: ICard;
@@ -62,42 +63,49 @@ const initialState: IinitialState = {
       cardId: 0,
       amount: 100,
       recipient: 'Some one',
+      icon: require('../../assets/transactionIcons/casino.png'),
     },
     {
       id: 1,
       cardId: 0,
       amount: 220,
       recipient: 'Some one',
+      icon: require('../../assets/transactionIcons/games.png'),
     },
     {
       id: 2,
       cardId: 1,
       amount: 500,
       recipient: 'Some one1',
+      icon: require('../../assets/transactionIcons/health.png'),
     },
     {
       id: 3,
       cardId: 1,
       amount: 270,
       recipient: 'Some one2',
+      icon: require('../../assets/transactionIcons/netflix.png'),
     },
     {
       id: 4,
       cardId: 1,
       amount: 910,
       recipient: 'Some one2',
+      icon: require('../../assets/transactionIcons/others.png'),
     },
     {
       id: 5,
       cardId: 2,
       amount: 10,
       recipient: 'Some one2',
+      icon: require('../../assets/transactionIcons/netflix.png'),
     },
     {
       id: 6,
       cardId: 2,
       amount: 20,
       recipient: 'Some one2',
+      icon: require('../../assets/transactionIcons/health.png'),
     },
 
     {
@@ -105,6 +113,7 @@ const initialState: IinitialState = {
       cardId: 0,
       amount: 20,
       recipient: 'Some one2',
+      icon: require('../../assets/transactionIcons/games.png'),
     },
 
     {
@@ -112,18 +121,21 @@ const initialState: IinitialState = {
       cardId: 0,
       amount: 20,
       recipient: 'Some one2',
+      icon: require('../../assets/transactionIcons/casino.png'),
     },
     {
       id: 9,
       cardId: 0,
       amount: 20,
       recipient: 'Some one2',
+      icon: require('../../assets/transactionIcons/netflix.png'),
     },
     {
       id: 10,
       cardId: 0,
       amount: 20,
       recipient: 'Some one2',
+      icon: require('../../assets/transactionIcons/others.png'),
     },
   ],
 };

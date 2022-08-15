@@ -1,14 +1,14 @@
-import React, {useCallback, useEffect, useState} from 'react';
-import {Alert, Button, View} from 'react-native';
 import React, {useState} from 'react';
-import {Button, StatusBar, View} from 'react-native';
+import {StatusBar} from 'react-native';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import {Provider} from 'react-redux';
-import {TargetPrompt} from './src/components/TargetPrompt/TargetPrompt';
 import {RootNavigator} from './src/navigation/RootNavigator';
 import {COLORS} from './src/resources/colors';
 import {SplashScreen} from './src/screens/SplashScreen';
 import {store} from './src/store/store';
+import { enableFreeze } from "react-native-screens";
+import { BottomSheet } from './src/components/BottomSheet/BottomSheet';
+enableFreeze(true);
 
 const App = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -19,8 +19,9 @@ const App = () => {
     return (
       <Provider store={store}>
         <GestureHandlerRootView style={{flex: 1}}>
-          <StatusBar backgroundColor={COLORS.transactionItem}/>
+          <StatusBar backgroundColor={COLORS.transactionItem} />
           <RootNavigator />
+          <BottomSheet />
         </GestureHandlerRootView>
       </Provider>
       // <View

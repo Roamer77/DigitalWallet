@@ -6,7 +6,11 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {Gesture, GestureDetector, GestureHandlerRootView} from 'react-native-gesture-handler';
+import {
+  Gesture,
+  GestureDetector,
+  GestureHandlerRootView,
+} from 'react-native-gesture-handler';
 import Animated, {
   Layout,
   SlideInLeft,
@@ -15,8 +19,10 @@ import Animated, {
   useSharedValue,
   withTiming,
 } from 'react-native-reanimated';
+import {useDispatch} from 'react-redux';
 import {CARD_COLORS, IColorScheme} from '../../resources/colors';
-import {useAppSelector} from '../../store/hooks';
+import {useAppDispatch, useAppSelector} from '../../store/hooks';
+import {setIsSettingsHeaderOpened} from '../../store/redusers/appStateReducer';
 import {ICard} from '../../store/redusers/cardReducer';
 import {AppIcon} from '../AppIcon/AppIcon';
 import {CardBalance} from '../Card/CardBalance';
@@ -47,6 +53,8 @@ export const CardListItem: FC<ICardListItem> = ({
   state,
 }) => {
   const {cardStyles} = useAppSelector(store => store.appStyle);
+  const {isSettingsHeaderOpen} = useAppSelector(store => store.appState);
+  const dispatch = useAppDispatch();
   const cardColorName = cardStyles.find(item => item.cardId === data.id);
   const cardColorScheme: IColorScheme =
     CARD_COLORS[cardColorName?.cardColorName];
@@ -102,6 +110,7 @@ export const CardListItem: FC<ICardListItem> = ({
 
   const tap = () => {
     setCurrentIndex(index);
+    dispatch(setIsSettingsHeaderOpened(!isSettingsHeaderOpen));
     if (currentIndex === null) {
       detailesFunctionsHeight.value = 300;
       itemHeight.value = 160;
@@ -153,8 +162,8 @@ export const CardListItem: FC<ICardListItem> = ({
   return (
     <Animated.View style={[styles.container]}>
       <Animated.View style={[slideRightStyle]}>
-        <GestureDetector gesture={composed}>
-          <TouchableOpacity onPress={tap} activeOpacity={0.9}>
+        <TouchableOpacity onPress={tap} activeOpacity={0.9}>
+          <GestureDetector gesture={composed}>
             <Animated.View
               style={[
                 {...styles.content, backgroundColor: cardColorScheme.primary},
@@ -174,8 +183,8 @@ export const CardListItem: FC<ICardListItem> = ({
                 cardInfoScale={cardInfoScale}
               />
             </Animated.View>
-          </TouchableOpacity>
-        </GestureDetector>
+          </GestureDetector>
+        </TouchableOpacity>
         <CardSettingFunctions
           animHeight={detailesFunctionsHeight}
           translateY={settingsCardTranslatY}

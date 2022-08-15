@@ -4,6 +4,7 @@ import React, {FC, useCallback} from 'react';
 import {AppBottomTabBar} from '../components/AppBottomTabBar/AppBottomTabBar';
 import {AppIcon} from '../components/AppIcon/AppIcon';
 import {AppIconButton} from '../components/AppIconButton/AppIconButton';
+import {BottomSheet} from '../components/BottomSheet/BottomSheet';
 import {COLORS} from '../resources/colors';
 import {Dashboard} from '../screens/Dashboard';
 import {ScreenNames} from '../screens/ScreenNames';
@@ -12,19 +13,22 @@ import {Statistics} from '../screens/Statistics';
 import {useAppDispatch} from '../store/hooks';
 import {setIsAddCardModalVisible} from '../store/redusers/appStateReducer';
 import {DashboardStackNavigator} from './DashboardStackNavigator';
+import {SettingStackNavigator} from './SettingStackNavigator';
 
 interface IBottomTabsNavigator {}
-const routs = [ScreenNames.Dashboard, ScreenNames.Settings];
+const routs = [
+  ScreenNames.DashboardStackNavigator,
+  ScreenNames.SettingsStackNavigator,
+];
 const BottomTab = createBottomTabNavigator();
 export const BottomTabsNavigator: FC<IBottomTabsNavigator> = ({}) => {
-  const dispatch = useAppDispatch();
   const screenOptions = (route: RouteProp<ParamListBase, string>) => {
     let iconName;
     switch (route.name) {
-      case ScreenNames.Dashboard:
+      case ScreenNames.DashboardStackNavigator:
         iconName = require('../assets/TabIcons/Dashborad.png');
         break;
-      case ScreenNames.Settings:
+      case ScreenNames.SettingsStackNavigator:
         iconName = require('../assets/TabIcons/Settings.png');
         break;
       default:
@@ -33,9 +37,6 @@ export const BottomTabsNavigator: FC<IBottomTabsNavigator> = ({}) => {
     return <AppIcon icon={iconName} width={25} height={25} />;
   };
 
-  const openModalForCreationCard = useCallback(() => {
-    dispatch(setIsAddCardModalVisible(true));
-  }, [dispatch]);
   return (
     <BottomTab.Navigator
       tabBar={({navigation}) => {
@@ -54,10 +55,9 @@ export const BottomTabsNavigator: FC<IBottomTabsNavigator> = ({}) => {
         tabBarInactiveTintColor: '#111',
       })}>
       <BottomTab.Screen
-        name={'DashboardStackNavigator'}
+        name={ScreenNames.DashboardStackNavigator}
         component={DashboardStackNavigator}
       />
-      {/* <BottomTab.Screen name={ScreenNames.Statistics} component={Statistics} /> */}
       <BottomTab.Screen
         options={{
           headerShown: false,
@@ -65,8 +65,8 @@ export const BottomTabsNavigator: FC<IBottomTabsNavigator> = ({}) => {
             backgroundColor: COLORS.bottomTabBar,
           },
         }}
-        name={ScreenNames.Settings}
-        component={Settings}
+        name={ScreenNames.SettingsStackNavigator}
+        component={SettingStackNavigator}
       />
     </BottomTab.Navigator>
   );

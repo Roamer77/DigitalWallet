@@ -7,20 +7,17 @@ import {AppHeader} from './AppHeader';
 interface IAppHeaderWithActionButton {
   onPress: () => void;
   style?: any;
+  title: string;
 }
 
 export const AppHeaderWithActionButton: FC<IAppHeaderWithActionButton> = ({
   onPress,
   style,
+  title,
 }) => {
   return (
     <View style={{...styles.container, ...style}}>
-      <AppHeader
-        text={'Settings'}
-        size={24}
-        color={'#111'}
-        style={styles.header}
-      />
+      <AppHeader text={title} size={24} color={'#111'} style={styles.header} />
       <AppIconButton
         onPress={onPress}
         icon={require('../../assets/CardList/addCard.png')}

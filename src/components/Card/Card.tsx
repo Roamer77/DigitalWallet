@@ -1,7 +1,5 @@
 import React, {FC} from 'react';
 import {Dimensions, StyleSheet, View} from 'react-native';
-import {StyleSheet, View} from 'react-native';
-import {SharedElement} from 'react-navigation-shared-element';
 import {useAppDispatch} from '../../store/hooks';
 import {setIsCardModalVisible} from '../../store/redusers/appStateReducer';
 import {ActionButton} from '../ActionButton/ActionButton';
@@ -20,7 +18,7 @@ interface ICard {
   id: number;
   style?: any;
 }
-const width = Dimensions.get("window").width;
+const width = Dimensions.get('window').width;
 export const Card: FC<ICard> = ({
   name,
   cardNumber,
