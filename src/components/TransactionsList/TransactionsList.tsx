@@ -6,9 +6,11 @@ import {useAppSelector} from '../../store/hooks';
 import {AppHeader} from '../AppHeader/AppHeader';
 import {Transaction} from './Transaction/Transaction';
 
-interface ITransactionsList {}
+interface ITransactionsList {
+  onPress: () => void;
+}
 
-export const TransactionsList: FC<ITransactionsList> = ({}) => {
+export const TransactionsList: FC<ITransactionsList> = ({onPress}) => {
   const {currentCard, transactions} = useAppSelector(store => store.cards);
   const currentTransactions = transactions.filter(
     item => item.cardId === currentCard.id,
@@ -31,6 +33,7 @@ export const TransactionsList: FC<ITransactionsList> = ({}) => {
             cardData={currentCard}
             renderIndex={index}
             icon={item.icon}
+            onPress={onPress}
           />
         )}
         keyExtractor={item => item.id.toString()}

@@ -1,6 +1,6 @@
 import {useNavigation} from '@react-navigation/native';
-import React, {FC, useEffect} from 'react';
-import {SafeAreaView, StyleSheet} from 'react-native';
+import React, {FC, useCallback, useEffect, useRef} from 'react';
+import {SafeAreaView, StyleSheet, View} from 'react-native';
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
@@ -8,7 +8,10 @@ import Animated, {
 } from 'react-native-reanimated';
 import {AppHeader} from '../components/AppHeader/AppHeader';
 import {AppModal} from '../components/AppModals/AppModal/AppModal';
-import {BottomSheet} from '../components/BottomSheet/BottomSheet';
+import {
+  BottomSheet,
+  BottomSheetRefProps,
+} from '../components/BottomSheet/BottomSheet';
 import {CardCarousel} from '../components/CardCarusel/CardCarousel';
 import {TransactionsList} from '../components/TransactionsList/TransactionsList';
 import {WavyBackground} from '../components/WavyBackground/WavyBackground';
@@ -17,6 +20,11 @@ import {FadeInView} from './AnimatedScreenView/FadeInView';
 interface IDashboard {}
 
 export const Dashboard: FC<IDashboard> = ({}) => {
+  const ref = useRef<BottomSheetRefProps>(null);
+  const openBottomSheet = useCallback(() => {
+    const isActive = ref.current?.isActive();
+    ref.current?.scrollTo(isActive ? 0 : -250);
+  }, []);
   return (
     <SafeAreaView style={{flex: 1}}>
       <WavyBackground
@@ -37,10 +45,12 @@ export const Dashboard: FC<IDashboard> = ({}) => {
           style={styles.header}
         />
         <CardCarousel />
-        <TransactionsList />
+        <TransactionsList onPress={openBottomSheet} />
         <AppModal />
       </Animated.View>
-
+      <BottomSheet ref={ref}>
+        <View style={{backgroundColor: 'orange', flex: 1}} />
+      </BottomSheet>
     </SafeAreaView>
   );
 };

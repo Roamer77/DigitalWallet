@@ -1,5 +1,6 @@
 import React, {FC, useEffect} from 'react';
 import {Text, View, StyleSheet, Image} from 'react-native';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 import Animated, {
   Extrapolate,
   useAnimatedStyle,
@@ -16,6 +17,7 @@ interface ITransaction {
   cardData: ICard;
   renderIndex: number;
   icon: any;
+  onPress: () => void;
 }
 
 export const Transaction: FC<ITransaction> = ({
@@ -23,6 +25,7 @@ export const Transaction: FC<ITransaction> = ({
   cardData,
   renderIndex,
   icon,
+  onPress,
 }) => {
   const opacity = useSharedValue(0);
 
@@ -43,17 +46,19 @@ export const Transaction: FC<ITransaction> = ({
         },
         animatedStyle,
       ]}>
-      <View style={styles.content}>
-        <View style={styles.iconWrapper}>
-          <Image style={styles.icon} source={icon} />
+      <TouchableOpacity onPress={onPress}>
+        <View style={styles.content}>
+          <View style={styles.iconWrapper}>
+            <Image style={styles.icon} source={icon} />
+          </View>
+          <View style={styles.textWrapper}>
+            <Text style={styles.text}> {data.recipient}</Text>
+            <Text style={styles.amount}>
+              {data.amount} {cardData.currencyType}
+            </Text>
+          </View>
         </View>
-        <View style={styles.textWrapper}>
-          <Text style={styles.text}> {data.recipient}</Text>
-          <Text style={styles.amount}>
-            {data.amount} {cardData.currencyType}
-          </Text>
-        </View>
-      </View>
+      </TouchableOpacity>
     </Animated.View>
   );
 };

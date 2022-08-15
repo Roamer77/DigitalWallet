@@ -21,7 +21,7 @@ const App = () => {
         <GestureHandlerRootView style={{flex: 1}}>
           <StatusBar backgroundColor={COLORS.transactionItem} />
           <RootNavigator />
-          <BottomSheet />
+
         </GestureHandlerRootView>
       </Provider>
       // <View
